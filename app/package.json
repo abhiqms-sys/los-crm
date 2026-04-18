@@ -1,9 +1,14 @@
 {
-"name":"los-crm",
-"private":true,
-"scripts":{
-"dev":"next dev",
-"build":"next build",
-"start":"next start"
-}
+ "name":"los-crm",
+ "private":true,
+ "dependencies":{
+   "next":"latest",
+   "react":"latest",
+   "react-dom":"latest"
+ },
+ "scripts":{
+   "dev":"next dev",
+   "build":"next build",
+   "start":"next start"
+ }
 }
