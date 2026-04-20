@@ -183,7 +183,10 @@ Export Excel
 <option>BT+TOPUP</option>
 </select><br/><br/>
 
-<input name="city" placeholder="CITY" value={form.city} onChange={onChange}/><br/><br/>
+<input name="city" placeholder="CITY" style={{
+padding:'10px',
+width:'100%'
+}}value={form.city} onChange={onChange}/><br/><br/>
 
 <input name="customerName" placeholder="CUSTOMER NAME" value={form.customerName} onChange={onChange}/><br/><br/>
 
