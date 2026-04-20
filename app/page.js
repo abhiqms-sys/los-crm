@@ -198,16 +198,6 @@ Export Excel
 </button>
 
 <hr/>
-<h2>Search & Edit by LOS Number</h2>
-
-<input
-value={losSearch}
-onChange={(e)=>setLosSearch(e.target.value)}
-placeholder="Enter LOS Number"
-style={{padding:'10px'}}
-/>
- <buttononClick={searchAndLoadCase} style={{marginLeft:'10px'}}>Search</button>
-
 <h2>New Case Entry</h2>
 <div style={{
 display:'grid',
@@ -259,6 +249,17 @@ maxWidth:'900px'
 </button>
 
 <hr/>
+
+ <h2>Search & Edit by LOS Number</h2>
+
+<input
+value={losSearch}
+onChange={(e)=>setLosSearch(e.target.value)}
+placeholder="Enter LOS Number"
+style={{padding:'10px'}}
+/>
+ <button onClick={searchAndLoadCase} 
+ style={{marginLeft:'10px'}}>"Search:" </button> </input>
 
 <h2>Search</h2>
 
