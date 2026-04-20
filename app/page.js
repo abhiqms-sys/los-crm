@@ -257,7 +257,7 @@ value={losSearch}
 onChange={(e)=>setLosSearch(e.target.value)}
 placeholder="Enter LOS Number"
 style={{padding:'10px'}}
-/>
+>
  <button onClick={searchAndLoadCase} 
  style={{marginLeft:'10px'}}>"Search:" </button> </input>
 
