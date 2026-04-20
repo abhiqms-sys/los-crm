@@ -79,14 +79,6 @@ const addRow=()=>{
    ));
    setEditId(null);
  } else {
-   setRows(prev=>[
-     ...prev,
-     {...form,id:Date.now()}
-   ]);
- }
-
- setForm(empty);
-};  
   const searchAndLoadCase=()=>{
  if(!losSearch) return;
  const found = rows.find(r => (r.losNum||'')===losSearch);
