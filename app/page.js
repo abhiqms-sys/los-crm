@@ -188,15 +188,30 @@ padding:'10px',
 width:'100%'
 }}value={form.city} onChange={onChange}/><br/><br/>
 
-<input name="customerName" placeholder="CUSTOMER NAME" value={form.customerName} onChange={onChange}/><br/><br/>
+<input name="customerName" placeholder="CUSTOMER NAME" style={{
+padding:'10px',
+width:'100%'
+}}value={form.customerName} onChange={onChange}/><br/><br/>
 
-<input name="companyName" placeholder="COMPANY NAME" value={form.companyName} onChange={onChange}/><br/><br/>
+<input name="companyName" placeholder="COMPANY NAME" style={{
+padding:'10px',
+width:'100%'
+}}value={form.companyName} onChange={onChange}/><br/><br/>
 
-<input name="contactNum" placeholder="CONTACT NUM" value={form.contactNum} onChange={onChange}/><br/><br/>
+<input name="contactNum" placeholder="CONTACT NUM"style={{
+padding:'10px',
+width:'100%'
+}} value={form.contactNum} onChange={onChange}/><br/><br/>
 
-<input name="tlName" placeholder="TL NAME" value={form.tlName} onChange={onChange}/><br/><br/>
+<input name="tlName" placeholder="TL NAME" style={{
+padding:'10px',
+width:'100%'
+}}value={form.tlName} onChange={onChange}/><br/><br/>
 
-<input name="executive" placeholder="EXECUTIVE" value={form.executive} onChange={onChange}/><br/><br/>
+<input name="executive" placeholder="EXECUTIVE" style={{
+padding:'10px',
+width:'100%'
+}}value={form.executive} onChange={onChange}/><br/><br/>
 
 <select name="status" value={form.status} onChange={onChange}>
 <option>DDE</option>
