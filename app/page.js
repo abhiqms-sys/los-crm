@@ -18,6 +18,7 @@ netAmount:'',
 grossAmount:'',
 disburseDate:''
 };
+
 const [editId,setEditId]=useState(null);
 const [losSearch,setLosSearch]=useState('');
 const [form,setForm]=useState(empty);
@@ -27,137 +28,146 @@ const [fileName,setFileName]=useState('loan_master');
 
 useEffect(()=>{
 
-if(typeof window !== 'undefined'){
+ if(typeof window !== 'undefined'){
 
-const savedName=localStorage.getItem('master_file_name');
+  const savedName=localStorage.getItem('master_file_name');
 
-if(savedName){
-setFileName(savedName);
-}
+  if(savedName){
+   setFileName(savedName);
+  }
 
-const savedData=localStorage.getItem(
-`master_excel_data_${savedName || 'loan_master'}`
-);
+  const savedData=localStorage.getItem(
+   `master_excel_data_${savedName || 'loan_master'}`
+  );
 
-if(savedData){
-setRows(JSON.parse(savedData));
-}
+  if(savedData){
+   setRows(JSON.parse(savedData));
+  }
 
-}
+ }
 
 },[]);
 
 useEffect(()=>{
 
-if(typeof window !== 'undefined'){
-localStorage.setItem(
-`master_excel_data_${fileName}`,
-JSON.stringify(rows)
-);
+ if(typeof window !== 'undefined'){
 
-localStorage.setItem(
-'master_file_name',
-fileName
-);
-}
+  localStorage.setItem(
+   `master_excel_data_${fileName}`,
+   JSON.stringify(rows)
+  );
+
+  localStorage.setItem(
+   'master_file_name',
+   fileName
+  );
+
+ }
 
 },[rows,fileName]);
 
 const onChange=(e)=>{
-setForm({
-...form,
-[e.target.name]:e.target.value
-});
+ setForm({
+  ...form,
+  [e.target.name]:e.target.value
+ });
 };
 
 const addRow=()=>{
+
  if(!form.customerName || !form.losNum) return;
 
  if(editId){
-   setRows(prev=>prev.map(r=>
-     r.id===editId ? {...form,id:editId} : r
-   ));
-   setEditId(null);
+
+  setRows(prev=>prev.map(r =>
+   r.id===editId ? {...form,id:editId} : r
+  ));
+
+  setEditId(null);
+
  } else {
- 
-  const searchAndLoadCase=()=>{
+
+  setRows(prev=>[
+   ...prev,
+   {
+    ...form,
+    id:Date.now()
+   }
+  ]);
+
+ }
+
+ setForm(empty);
+
+};
+
+const searchAndLoadCase=()=>{
+
  if(!losSearch) return;
 
  const found=rows.find(
-   r => (r.losNum||'')===losSearch
+  r => (r.losNum||'')===losSearch
  );
 
  if(!found){
-   alert('LOS not found');
-   return;
+  alert('LOS not found');
+  return;
  }
 
  setForm({...found});
  setEditId(found.id);
-};
-setRows(prev=>[
-...prev,
-{
-...form,
-id:Date.now()
-}
-]);
 
-setForm(empty);
 };
 
 const exportCsv=()=>{
 
-const headers=[
-'SR NO',
-'LOS NUM',
-'TYPE OF LOAN',
-'CITY',
-'CUSTOMER NAME',
-'COMPANY NAME',
-'CONTACT NUM',
-'TL NAME',
-'EXECUTIVE',
-'STATUS',
-'NET AMOUNT',
-'GROSS AMOUNT',
-'DISBURSE DATE'
-];
+ const headers=[
+ 'SR NO',
+ 'LOS NUM',
+ 'TYPE OF LOAN',
+ 'CITY',
+ 'CUSTOMER NAME',
+ 'COMPANY NAME',
+ 'CONTACT NUM',
+ 'TL NAME',
+ 'EXECUTIVE',
+ 'STATUS',
+ 'NET AMOUNT',
+ 'GROSS AMOUNT',
+ 'DISBURSE DATE'
+ ];
 
-const csv=[
-headers.join(','),
-...rows.map((r,i)=>[
-i+1,
-r.losNum,
-r.loanType,
-r.city,
-r.customerName,
-r.companyName,
-r.contactNum,
-r.tlName,
-r.executive,
-r.status,
-r.netAmount,
-r.grossAmount,
-r.disburseDate
-].join(','))
-].join('\n');
+ const csv=[
+ headers.join(','),
+ ...rows.map((r,i)=>[
+ i+1,
+ r.losNum,
+ r.loanType,
+ r.city,
+ r.customerName,
+ r.companyName,
+ r.contactNum,
+ r.tlName,
+ r.executive,
+ r.status,
+ r.netAmount,
+ r.grossAmount,
+ r.disburseDate
+ ].join(','))
+ ].join('\n');
 
-const blob=new Blob([csv],{
-type:'text/csv'
-});
+ const blob=new Blob([csv],{
+ type:'text/csv'
+ });
 
-const a=document.createElement('a');
+ const a=document.createElement('a');
+ const url=URL.createObjectURL(blob);
 
-const url=URL.createObjectURL(blob);
+ a.href=url;
+ a.download=`${fileName}.csv`;
+ a.click();
 
-a.href=url;
-
-a.download=`${fileName}.csv`;
-
-a.click();
-
-URL.revokeObjectURL(url);
+ URL.revokeObjectURL(url);
 
 };
 
@@ -195,7 +205,27 @@ Export Excel
 </button>
 
 <hr/>
+
+<h2>Search & Edit by LOS Number</h2>
+
+<input
+value={losSearch}
+onChange={(e)=>setLosSearch(e.target.value)}
+placeholder="Enter LOS Number"
+style={{padding:'10px'}}
+/>
+
+<button
+onClick={searchAndLoadCase}
+style={{marginLeft:'10px'}}
+>
+Search
+</button>
+
+<hr/>
+
 <h2>New Case Entry</h2>
+
 <div style={{
 display:'grid',
 gridTemplateColumns:'1fr 1fr',
@@ -241,27 +271,13 @@ maxWidth:'900px'
 
 </div>
 
+<br/>
+
 <button onClick={addRow}>
 {editId ? 'Update Case' : 'Append To File'}
 </button>
 
 <hr/>
-
- <h2>Search & Edit by LOS Number</h2>
-
-<input
-value={losSearch}
-onChange={(e)=>setLosSearch(e.target.value)}
-placeholder="Enter LOS Number"
-style={{padding:'10px'}}
-/>
-
-<button
-onClick={searchAndLoadCase}
-style={{marginLeft:'10px'}}
->
-Search
-</button>
 
 <h2>Search</h2>
 
@@ -296,9 +312,7 @@ SR {idx+1} | {r.customerName} | {r.losNum}
 
 <br/>
 
-Net ₹{r.netAmount}
-|
-Gross ₹{r.grossAmount}
+Net ₹{r.netAmount} | Gross ₹{r.grossAmount}
 
 </div>
 
