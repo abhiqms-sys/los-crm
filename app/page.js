@@ -174,44 +174,32 @@ Export Excel
 <hr/>
 
 <h2>New Case Entry</h2>
+<div style={{
+display:'grid',
+gridTemplateColumns:'1fr 1fr',
+gap:'15px',
+maxWidth:'900px'
+}}>
 
-<input name="losNum" placeholder="LOS NUM" value={form.losNum} onChange={onChange}/><br/><br/>
+<input name="losNum" placeholder="LOS NUM" value={form.losNum} onChange={onChange}/>
 
 <select name="loanType" value={form.loanType} onChange={onChange}>
 <option>FRESH</option>
 <option>TOPUP</option>
 <option>BT+TOPUP</option>
-</select><br/><br/>
+</select>
 
-<input name="city" placeholder="CITY" style={{
-padding:'10px',
-width:'100%'
-}}value={form.city} onChange={onChange}/><br/><br/>
+<input name="city" placeholder="CITY" value={form.city} onChange={onChange}/>
 
-<input name="customerName" placeholder="CUSTOMER NAME" style={{
-padding:'10px',
-width:'100%'
-}}value={form.customerName} onChange={onChange}/><br/><br/>
+<input name="customerName" placeholder="CUSTOMER NAME" value={form.customerName} onChange={onChange}/>
 
-<input name="companyName" placeholder="COMPANY NAME" style={{
-padding:'10px',
-width:'100%'
-}}value={form.companyName} onChange={onChange}/><br/><br/>
+<input name="companyName" placeholder="COMPANY NAME" value={form.companyName} onChange={onChange}/>
 
-<input name="contactNum" placeholder="CONTACT NUM"style={{
-padding:'10px',
-width:'100%'
-}} value={form.contactNum} onChange={onChange}/><br/><br/>
+<input name="contactNum" placeholder="CONTACT NUM" value={form.contactNum} onChange={onChange}/>
 
-<input name="tlName" placeholder="TL NAME" style={{
-padding:'10px',
-width:'100%'
-}}value={form.tlName} onChange={onChange}/><br/><br/>
+<input name="tlName" placeholder="TL NAME" value={form.tlName} onChange={onChange}/>
 
-<input name="executive" placeholder="EXECUTIVE" style={{
-padding:'10px',
-width:'100%'
-}}value={form.executive} onChange={onChange}/><br/><br/>
+<input name="executive" placeholder="EXECUTIVE" value={form.executive} onChange={onChange}/>
 
 <select name="status" value={form.status} onChange={onChange}>
 <option>DDE</option>
@@ -221,13 +209,15 @@ width:'100%'
 <option>FTNR</option>
 <option>MDR</option>
 <option>REJECTED</option>
-</select><br/><br/>
+</select>
 
-<input name="netAmount" placeholder="NET AMOUNT" value={form.netAmount} onChange={onChange}/><br/><br/>
+<input name="netAmount" placeholder="NET AMOUNT" value={form.netAmount} onChange={onChange}/>
 
-<input name="grossAmount" placeholder="GROSS AMOUNT" value={form.grossAmount} onChange={onChange}/><br/><br/>
+<input name="grossAmount" placeholder="GROSS AMOUNT" value={form.grossAmount} onChange={onChange}/>
 
-<input type="date" name="disburseDate" value={form.disburseDate} onChange={onChange}/><br/><br/>
+<input type="date" name="disburseDate" value={form.disburseDate} onChange={onChange}/>
+
+</div>
 
 <button onClick={addRow}>
 Append To File
