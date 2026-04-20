@@ -19,7 +19,7 @@ grossAmount:'',
 disburseDate:''
 };
 const [editId,setEditId]=useState(null);
-const [losSearch,setLosSearch]=useState('')  
+const [losSearch,setLosSearch]=useState('');
 const [form,setForm]=useState(empty);
 const [rows,setRows]=useState([]);
 const [search,setSearch]=useState('');
@@ -79,17 +79,22 @@ const addRow=()=>{
    ));
    setEditId(null);
  } else {
+ 
   const searchAndLoadCase=()=>{
  if(!losSearch) return;
- const found = rows.find(r => (r.losNum||'')===losSearch);
- if(!found) {
+
+ const found=rows.find(
+   r => (r.losNum||'')===losSearch
+ );
+
+ if(!found){
    alert('LOS not found');
    return;
  }
+
  setForm({...found});
  setEditId(found.id);
 };
-
 setRows(prev=>[
 ...prev,
 {
@@ -249,9 +254,14 @@ value={losSearch}
 onChange={(e)=>setLosSearch(e.target.value)}
 placeholder="Enter LOS Number"
 style={{padding:'10px'}}
+/>
+
+<button
+onClick={searchAndLoadCase}
+style={{marginLeft:'10px'}}
 >
- <button onClick={searchAndLoadCase} 
- style={{marginLeft:'10px'}}>"Search:" </button> </input>
+Search
+</button>
 
 <h2>Search</h2>
 
