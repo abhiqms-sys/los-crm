@@ -18,7 +18,8 @@ netAmount:'',
 grossAmount:'',
 disburseDate:''
 };
-
+const [editId,setEditId]=useState(null);
+const [losSearch,setLosSearch]=useState('')  
 const [form,setForm]=useState(empty);
 const [rows,setRows]=useState([]);
 const [search,setSearch]=useState('');
@@ -70,7 +71,32 @@ setForm({
 };
 
 const addRow=()=>{
-if(!form.customerName || !form.losNum) return;
+ if(!form.customerName || !form.losNum) return;
+
+ if(editId){
+   setRows(prev=>prev.map(r=>
+     r.id===editId ? {...form,id:editId} : r
+   ));
+   setEditId(null);
+ } else {
+   setRows(prev=>[
+     ...prev,
+     {...form,id:Date.now()}
+   ]);
+ }
+
+ setForm(empty);
+};  
+  const searchAndLoadCase=()=>{
+ if(!losSearch) return;
+ const found = rows.find(r => (r.losNum||'')===losSearch);
+ if(!found) {
+   alert('LOS not found');
+   return;
+ }
+ setForm({...found});
+ setEditId(found.id);
+};
 
 setRows(prev=>[
 ...prev,
@@ -173,6 +199,22 @@ Export Excel
 
 <hr/>
 
+  <h2>Search & Edit by LOS Number</h2>
+
+<input
+value={losSearch}
+onChange={(e)=>setLosSearch(e.target.value)}
+placeholder="Enter LOS Number"
+style={{padding:'10px'}}
+/>
+
+<button
+onClick={searchAndLoadCase}
+style={{marginLeft:'10px'}}
+>
+Search
+</button>
+
 <h2>New Case Entry</h2>
 <div style={{
 display:'grid',
@@ -220,7 +262,7 @@ maxWidth:'900px'
 </div>
 
 <button onClick={addRow}>
-Append To File
+{editId ? 'Update Case' : 'Append To File'}
 </button>
 
 <hr/>
